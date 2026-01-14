@@ -119,7 +119,14 @@ function App() {
           <div className="grid">
             {games.map(g => (
               <article key={g.id} className="card">
-                {g.image_url ? <img src={(import.meta.env.VITE_API_URL || 'http://localhost:4000') + g.image_url} alt={g.name} /> : <div className="placeholder">No image</div>}
+                {g.image_url ? (
+                  <img
+                    src={g.image_url.startsWith('http') ? g.image_url : (import.meta.env.VITE_API_URL || 'http://localhost:4000') + g.image_url}
+                    alt={g.name}
+                  />
+                ) : (
+                  <div className="placeholder">No image</div>
+                )}
                 <h3>{g.name}</h3>
                 <p>{g.description}</p>
                 {g.video_urls && g.video_urls.length ? (
